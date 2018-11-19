@@ -5,6 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/*Фибоначчиева куча
+3. Объединение двух куч.
+ */
+
 namespace FibonacciHeapCSharp
 {
     class Program
@@ -13,18 +17,8 @@ namespace FibonacciHeapCSharp
         {
             IntFibonacciHeap heap = ReadFile("input.txt");
             if (heap != null && !heap.IsEmpty())
-            { 
-            //ProcessList(heap);
-            Node<int> minNode = heap.GetMinNode();
-            heap.ExtractMin();
-            //Console.WriteLine(minNode.Key);
-            IntFibonacciHeap secondHeap = ReadFile("input2.txt");
-            heap.Union(secondHeap);
-
-            minNode = heap.GetMinNode();
-            Console.WriteLine(minNode.Key);
+                ProcessHeap(heap);
             WriteFile(heap, "output.txt");
-            }
         }
 
         private static void WriteFile(IntFibonacciHeap heap, string fileName)
@@ -38,9 +32,18 @@ namespace FibonacciHeapCSharp
             }
         }
 
-        private static void ProcessList(IntFibonacciHeap heap)
+        private static void ProcessHeap(IntFibonacciHeap heap)
         {
-            
+            heap.ExtractMin();
+            IntFibonacciHeap secondHeap = ReadFile("input2.txt");
+            if (secondHeap != null && !secondHeap.IsEmpty())
+                heap.Union(secondHeap);
+
+            //Console.WriteLine(heap.GetMinNode().Key);
+            //Console.WriteLine(heap.GetMinNode().Key);
+            //heap.DecreaseKey(heap.GetMinNode(), 1);
+            //Console.WriteLine(heap.GetMinNode().Key);
+            //heap.Delete(heap.GetMinNode());
         }
 
         private static IntFibonacciHeap ReadFile(string fileName)

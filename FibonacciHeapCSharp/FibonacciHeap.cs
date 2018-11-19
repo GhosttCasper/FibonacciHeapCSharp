@@ -128,7 +128,6 @@ namespace FibonacciHeapCSharp
             var iterator = minimumNode; // iterator - текущий узел в корневом списке
             do
             {
-                Console.WriteLine(iterator.Key);
                 Node<T> curNode = iterator;
                 iterator = iterator.Right;
                 int degree = curNode.degree;
@@ -150,20 +149,6 @@ namespace FibonacciHeapCSharp
                 A[degree] = curNode;
             }
             while (iterator != minimumNode);
-            /*minimumNode = null;
-            foreach (Node<T> i in A)
-                if (i != null)
-                    if (minimumNode == null)
-                    {
-                        //Создать список корней Я, содержащий только Л[г]
-                        minimumNode = i;
-                    }
-                    else
-                    {
-                        // Вставить A[i] в список корней
-                        if (i.Key.CompareTo(minimumNode.Key) < 0)
-                            minimumNode = i;
-                    }*/
         }
 
         /// <summary>
@@ -185,6 +170,7 @@ namespace FibonacciHeapCSharp
 
         public void DecreaseKey(Node<T> node, T key) // амортизированное время 0(1)
         {
+            // если уменьшить узел, которого нет в куче, меньше, чем минимальный, то куча будет неправильно работать
             if (node.Key.CompareTo(key) < 0)
                 throw new Exception("New key is larger than the current one.");
             node.Key = key;
@@ -194,7 +180,7 @@ namespace FibonacciHeapCSharp
                 Cut(node, parent);
                 CascadingCut(parent);
             }
-            if (node.Key.CompareTo(minimumNode) < 0)
+            if (node.Key.CompareTo(minimumNode.Key) < 0)
                 minimumNode = node;
         }
 
