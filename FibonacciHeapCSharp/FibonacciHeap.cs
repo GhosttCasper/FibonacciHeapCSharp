@@ -126,6 +126,7 @@ namespace FibonacciHeapCSharp
         {
             Node<T>[] A = new Node<T>[numberNodes + 1];
             var iterator = minimumNode; // iterator - текущий узел в корневом списке
+            var startIterator = iterator;
             do
             {
                 Node<T> curNode = iterator;
@@ -134,7 +135,7 @@ namespace FibonacciHeapCSharp
                 while (A[degree] != null)
                 {
                     Node<T> nodeWithSameDegreeAsCur = A[degree]; // Другой узел с той же степенью, что и у текущего
-                    if (nodeWithSameDegreeAsCur.Key.CompareTo(curNode.Key) < 0)
+                    if (nodeWithSameDegreeAsCur.Key.CompareTo(curNode.Key) <= 0)
                     {
                         Node<T> prevCurNode = curNode;
                         curNode = nodeWithSameDegreeAsCur;
@@ -148,7 +149,7 @@ namespace FibonacciHeapCSharp
                 }
                 A[degree] = curNode;
             }
-            while (iterator != minimumNode);
+            while (iterator != startIterator);
         }
 
         /// <summary>
@@ -242,7 +243,7 @@ namespace FibonacciHeapCSharp
                     curChild = curChild.Right;
                 } while (curChild != startChild);
             }
-            else                
+            else
                 treeStr += '\n'; // чтобы не ставить лишний перенос строки между деревьями
             return treeStr;
         }
