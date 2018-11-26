@@ -21,23 +21,15 @@ namespace FibonacciHeapCSharp
             WriteFile(heap, "output.txt");
         }
 
-        private static void WriteFile(IntFibonacciHeap heap, string fileName)
-        {
-            using (StreamWriter writer = new StreamWriter(fileName))
-            {
-                List<String> trees = new List<string>();
-                trees = heap.HeapWalk();
-                foreach (string treeStr in trees)
-                    writer.WriteLine(treeStr);
-            }
-        }
-
         private static void ProcessHeap(IntFibonacciHeap heap)
         {
             heap.ExtractMin();
             IntFibonacciHeap secondHeap = ReadFile("input2.txt");
             if (secondHeap != null && !secondHeap.IsEmpty())
+            {
+                secondHeap.ExtractMin();
                 heap.Union(secondHeap);
+            }
 
             //Console.WriteLine(heap.GetMinNode().Key);
             //Console.WriteLine(heap.GetMinNode().Key);
@@ -55,6 +47,17 @@ namespace FibonacciHeapCSharp
                 heap = new IntFibonacciHeap(numbersStr);
             }
             return heap;
+        }
+
+        private static void WriteFile(IntFibonacciHeap heap, string fileName)
+        {
+            using (StreamWriter writer = new StreamWriter(fileName))
+            {
+                List<String> trees = new List<string>();
+                trees = heap.HeapWalk();
+                foreach (string treeStr in trees)
+                    writer.WriteLine(treeStr);
+            }
         }
     }
 }

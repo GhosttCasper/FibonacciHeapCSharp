@@ -96,8 +96,7 @@ namespace FibonacciHeapCSharp
                     curNode.Parent = null;
                     curNode = curNode.Right;
                 }
-            }
-            DeleteNodeFromList(minimumNode);
+            }            
             if (previousMin == previousMin.Right)
             {
                 minimumNode = null;
@@ -105,6 +104,7 @@ namespace FibonacciHeapCSharp
             }
             else
             {
+                DeleteNodeFromList(minimumNode);
                 minimumNode = previousMin.Right; // не обязательно минимальный узел
                 Consolidate();
                 numberNodes--;
